@@ -7,8 +7,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 
 const Overview = (props) => {
 
-    const { tasks } = props;
-    console.log(tasks)
+    const { tasks, deletionMethod } = props;
 
         return (
             <ul>
@@ -17,7 +16,7 @@ const Overview = (props) => {
                     <li 
                         key={task.id}>
                             {task.number}. {task.text} 
-                            <button><FontAwesomeIcon icon={faTrash} /></button>
+                            <button onClick={(e) => deletionMethod(task.id)}><FontAwesomeIcon icon={faTrash} /></button>
                     </li>
                     )
                 })}

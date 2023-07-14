@@ -24,7 +24,7 @@ class App extends Component {
             number: prevState.tasks.length + 1,
           },
         }));
-      }
+    }
 
    addTask = (e) => {
     e.preventDefault();
@@ -46,8 +46,27 @@ class App extends Component {
     })
   }
 
-  removeTask = (e) => {
-    const selected = e.target;
+  removeTask = (itemId) => {
+
+    const { tasks} = this.state;
+    console.log(itemId)
+    const updatedTasks = tasks.filter(task => (task.id !== itemId));
+
+    const updatedTasksWithNumbers = updatedTasks.map((task, index) => ({
+        ...task,
+        number: index + 1,
+      }));
+
+
+    this.setState({
+        inputValue: {
+            text: '',
+            id: uniqid(),
+            number: updatedTasks.length + 1
+        },
+        tasks: updatedTasksWithNumbers
+    })
+
 
   }
 
@@ -70,7 +89,7 @@ class App extends Component {
                 <input id="taskInput" onChange={this.handleInputChange} type="text" value={inputValue.text}></input>
                 <button type="submit">Submit</button>
             </form>
-            <Overview tasks={tasks}/>
+            <Overview deletionMethod={this.removeTask} tasks={tasks}/>
         </div>
       );
   }
