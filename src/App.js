@@ -8,11 +8,12 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            tasks: [],
             inputValue: {
                 text: '',
                 id: uniqid(),
+                number: 1,
             },
-            tasks: [],
         }
     }
 
@@ -20,19 +21,26 @@ class App extends Component {
     e.preventDefault();
 
     const { tasks, inputValue } = this.state;
+    const updatedTasks = [...tasks, inputValue];
+    const updatedTaskNumber = inputValue.number + 1;
+
     this.setState({
-        tasks: [...tasks, inputValue],
         inputValue: {
             text: '',
             id: uniqid(),
-        }
+            number: updatedTaskNumber
+        },
+        tasks: updatedTasks
     })
   }
 
   handleInputChange = (event) => {
+    const { inputValue } = this.state;
+
     this.setState({ inputValue: {
         text: event.target.value,
-        id: uniqid(),
+        id: inputValue.id,
+        number: inputValue.number,
     }})
 }
 

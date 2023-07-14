@@ -3,11 +3,13 @@ import React from "react";
 const Overview = (props) => {
 
     const { tasks } = props;
+    console.log(tasks)
 
         return (
             <ul>
                 {tasks.map((task) => {
-                    return <li key={task.id}>{task.text}</li>
+                    return <li key={task.id}>{task.number}. {task.text}</li>
+                    
                 })}
             </ul>
         )
