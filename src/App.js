@@ -17,21 +17,38 @@ class App extends Component {
         }
     }
 
+    componentDidMount() {
+        this.setState((prevState) => ({
+          inputValue: {
+            ...prevState.inputValue,
+            number: prevState.tasks.length + 1,
+          },
+        }));
+      }
+
    addTask = (e) => {
     e.preventDefault();
 
     const { tasks, inputValue } = this.state;
     const updatedTasks = [...tasks, inputValue];
-    const updatedTaskNumber = inputValue.number + 1;
+
+    if (!inputValue.text) {
+        return;
+    }
 
     this.setState({
         inputValue: {
             text: '',
             id: uniqid(),
-            number: updatedTaskNumber
+            number: updatedTasks.length + 1
         },
         tasks: updatedTasks
     })
+  }
+
+  removeTask = (e) => {
+    const selected = e.target;
+
   }
 
   handleInputChange = (event) => {
