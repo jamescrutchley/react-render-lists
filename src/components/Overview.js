@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import TaskPara from "./TaskPara";
 
 
 
@@ -15,7 +16,7 @@ const Overview = (props) => {
                     return (
                     <li 
                         key={task.id}>
-                            {task.number}. {task.text} 
+                            <TaskPara number={task.number} text={task.text}/>
                             <button onClick={(e) => deletionMethod(task.id)}><FontAwesomeIcon icon={faTrash} /></button>
                     </li>
                     )
