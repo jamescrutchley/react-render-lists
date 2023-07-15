@@ -12,6 +12,7 @@ class App extends Component {
             inputValue: {
                 text: '',
                 id: uniqid(),
+                edit: true,
                 number: 1,
             },
         }
@@ -40,7 +41,8 @@ class App extends Component {
         inputValue: {
             text: '',
             id: uniqid(),
-            number: updatedTasks.length + 1
+            edit: false,
+            number: updatedTasks.length + 1,
         },
         tasks: updatedTasks
     })
@@ -49,7 +51,6 @@ class App extends Component {
   removeTask = (itemId) => {
 
     const { tasks} = this.state;
-    console.log(itemId)
     const updatedTasks = tasks.filter(task => (task.id !== itemId));
 
     const updatedTasksWithNumbers = updatedTasks.map((task, index) => ({
@@ -62,34 +63,70 @@ class App extends Component {
         inputValue: {
             text: '',
             id: uniqid(),
+            edit: false,
             number: updatedTasks.length + 1
         },
         tasks: updatedTasksWithNumbers
     })
-
-
   }
 
+  //spread op this
   handleInputChange = (event) => {
     const { inputValue } = this.state;
 
     this.setState({ inputValue: {
         text: event.target.value,
         id: inputValue.id,
+        edit: false,
         number: inputValue.number,
     }})
 }
+
+
+    // inefficient (?) making copy, modifying, sorting, setting state.
+  handleEditMode = (itemId) => {
+    const { tasks } = this.state;
+
+    let copy = tasks.filter(task => task.id !== itemId);
+    const modified = tasks
+    .filter((task) => task.id === itemId)
+    .map((task) => ({ ...task, edit: true, }));    
+
+    let newArray = [...copy, ...modified].sort((a, b) => (a.number - b.number));
+
+    this.setState({
+        tasks: newArray
+    });
+}
+
+    handleSubmitEdit = (itemId, newValue) => {
+        const { tasks } = this.state;
+
+        let copy = tasks.filter(task => task.id !== itemId);
+        const modified = tasks
+        .filter((task) => task.id === itemId)
+        .map((task) => ({ ...task, text: newValue, edit: false}));
+
+        let newArray = [...copy, ...modified].sort((a, b) => (a.number - b.number));
+
+        this.setState({
+            tasks: newArray
+        });
+    }
+
+  
 
   render() {
     const { tasks, inputValue} = this.state;
     return (
         <div className="App">
+            <h1>Tasks</h1>
             <form onSubmit={this.addTask}>
                 <label htmlFor="taskInput">Enter Task: </label>
                 <input id="taskInput" onChange={this.handleInputChange} type="text" value={inputValue.text}></input>
                 <button type="submit">Submit</button>
             </form>
-            <Overview deletionMethod={this.removeTask} tasks={tasks}/>
+            <Overview editMethod={this.handleEditMode} deletionMethod={this.removeTask} tasks={tasks} submitEdit={this.handleSubmitEdit}/>
         </div>
       );
   }

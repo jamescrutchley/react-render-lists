@@ -1,45 +1,40 @@
-// import React, { Component } from 'react';
+import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-// class Editable extends Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       isEditing: false,
-//       text: props.initialText,
-//     };
-//   }
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-//   handleDoubleClick = () => {
-//     this.setState({ isEditing: true });
-//   };
 
-//   handleBlur = () => {
-//     this.setState({ isEditing: false });
-//   };
+class Editable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: props.initialText,
+      number: props.number,
+      id: props.id
+    };
 
-//   handleChange = (event) => {
-//     this.setState({ text: event.target.value });
-//   };
+  }
 
-//   render() {
-//     const { isEditing, text } = this.state;
+  handleChange = (event) => {
+    this.setState({ text: event.target.value });
+  };
 
-//     if (isEditing) {
-//       return (
-//         <input
-//           type="text"
-//           value={text}
-//           onChange={this.handleChange}
-//           onBlur={this.handleBlur}
-//           autoFocus
-//         />
-//       );
-//     }
+  render() {
+    const { text, number, id } = this.state;
 
-//     return (
-//       <p onDoubleClick={this.handleDoubleClick}>{text}</p>
-//     );
-//   }
-// }
 
-// export default Editable;
+      return (
+        <p>{number}. <input
+        type="text"
+        value={text}
+        onChange={this.handleChange}
+        autoFocus
+      /> <button onClick={(e) => this.props.submitEdit(id, text)}>
+      <FontAwesomeIcon icon={faCheck} />
+  </button></p>
+        
+      );
+  }
+}
+
+export default Editable;

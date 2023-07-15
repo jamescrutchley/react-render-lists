@@ -4,8 +4,7 @@ const TaskPara = (props) => {
 
     //id, no, text
 
-    const { number, text} = props;
-    console.log(text);
+    const { number, text, edit } = props;
 
     return (
         <p>{number}. {text}</p>
