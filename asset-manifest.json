@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/react-render-lists%20/static/js/main.e2ff89fe.js",
-    "index.html": "/react-render-lists%20/index.html",
-    "main.e2ff89fe.js.map": "/react-render-lists%20/static/js/main.e2ff89fe.js.map"
+    "main.js": "/react-render-lists/static/js/main.e2ff89fe.js",
+    "index.html": "/react-render-lists/index.html",
+    "main.e2ff89fe.js.map": "/react-render-lists/static/js/main.e2ff89fe.js.map"
   },
   "entrypoints": [
     "static/js/main.e2ff89fe.js"
