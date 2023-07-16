@@ -1,14 +1,13 @@
 import React from "react";
 
 const TaskPara = (props) => {
+  const { number, text } = props;
 
-    //id, no, text
-
-    const { number, text, edit } = props;
-
-    return (
-        <p>{number}. {text}</p>
-    )
-}
+  return (
+    <p>
+      {number}. {text}
+    </p>
+  );
+};
 
 export default TaskPara;
